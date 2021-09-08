@@ -25,7 +25,20 @@ import re
 def _format(text: str) -> str:
     text = re.sub(r'([\“\”])+',"\"",text)
     text = re.sub(r'([\’])+', "'", text)
-    match = re.split(r'(\*{2})([\w\s\-\_\'\"\:\,\;\<\>\/][\w\s\-\_\'\"\:\;\,\*\<\>\/]+?)(\*{2})', text)
+    match = re.split(r'(s.)((?:\s+)?(?:\+\+\s?(?:[\w\s\-\_\'\"\:\;\,\*\<\>\/\“\”\’]+)+\=\=\s?)+\s?)(.s)', text)
+    full_length_list = []
+    for element in match:
+        full_length_list.extend(re.split(r'(\+\+)\s*([\w\s\-\_\'\"\:\;\,\*\<\>\/]+)\s*(\=\=)', element))
+    for i in range(len(full_length_list)):
+        if full_length_list[i] == "s.":
+            full_length_list[i] = "<ul>"
+        elif full_length_list[i] == ".s":
+            full_length_list[i] = "</ul>"
+        elif full_length_list[i] == "++":
+            full_length_list[i] = "<li>"
+        elif full_length_list[i] == "==":
+            full_length_list[i] = "</li>"
+    match = re.split(r'(\*{2})([\w\s\-\_\'\"\:\,\;\<\>\/][\w\s\-\_\'\"\:\;\,\*\<\>\/]+?)(\*{2})', ''.join(full_length_list) if full_length_list else text)
     if match:
         start = True
         for i in range(len(match)):

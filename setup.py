@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name='Doctim',
-  version='0.0.1',
+  version='0.1.0',
   description='A Template to HTML or DOCX',
   url='https://github.com/WhyDoWeLiveWithoutMeaning/Doctim',
   author="Eric Beaulne",
