@@ -2,6 +2,7 @@
 
 # Copyright (c) 2021 Meaning
 
+
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -96,9 +97,9 @@ class Erc:
             else:
                 if line.strip() == "\n" or len(line.strip()) == 0:
                     final_text += "<br>\n"
-                elif match := re.match(r'!([\d]+)\s*([\w\s\d\"\'#?\.@$%^&():;\*\-\“\”\’\,\_\\]+)\s*!', line):
+                elif match := re.match(r'!([\d]+)\s*([\w\s\d\"\'#?\.@$%^&():;\*\-\=\+\“\”\’\,\_\\]+)\s*!', line):
                     final_text += f"<h{match.group(1)}>{_format(match.group(2).strip())}</h{match.group(1)}>\n"
-                elif match := re.match(r'\?\s*([\w\s\d\"\'#!\.@$%^&():;\*\-\“\”\’\,\_\\]+)\s*\?', line):
+                elif match := re.match(r'\?\s*([\w\s\d\"\'#!\.@$%^&():;\*\-\“\”\=\+\’\,\_\\]+)\s*\?', line):
                     final_text += f"<p>{_format(match.group(1))}</p>\n"
                 elif match := re.match(r'\[(http[s]:\/\/([a-zA-Z\d\_\-\.\/]+)\.(png|jpg|jpeg))\]\(([a-zA-Z\'\"\“\”\’\#\,\^\s]+)+\)?', line):
                     final_text += f"<div class=\"img\">\n<img src=\"{match.group(1)}\">\n<under>{_format(match.group(4))}</under>\n</div>\n"
