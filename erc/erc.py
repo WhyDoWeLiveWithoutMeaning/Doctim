@@ -65,7 +65,7 @@ def _format(text: str) -> str:
             start = not start
     return ''.join(match) if match else text
 
-class Doctim:
+class Erc:
 
     def __init__(self, text: str) -> None:
         self.text = text
