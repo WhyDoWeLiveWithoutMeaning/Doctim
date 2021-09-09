@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name='Erc',
-  version='0.1.6',
+  version='0.1.7',
   description='A Template to HTML or DOCX',
   url='https://github.com/WhyDoWeLiveWithoutMeaning/Erc',
   author="Eric Beaulne",
