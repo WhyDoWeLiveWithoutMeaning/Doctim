@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-  name='Doctim',
+  name='Erc',
   version='0.1.0',
   description='A Template to HTML or DOCX',
-  url='https://github.com/WhyDoWeLiveWithoutMeaning/Doctim',
+  url='https://github.com/WhyDoWeLiveWithoutMeaning/Erc',
   author="Eric Beaulne",
   license="MIT",
-  packages=['doctim'],
+  packages=['erc'],
   install_requires=[],
   classifiers=[
     'Development Status :: 1 - Planning',
