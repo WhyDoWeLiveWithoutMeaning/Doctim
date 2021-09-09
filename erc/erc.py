@@ -103,7 +103,7 @@ class Erc:
                 elif match := re.match(r'\[(http[s]:\/\/([a-zA-Z\d\_\-\.\/]+)\.(png|jpg|jpeg))\]\(([a-zA-Z\'\"\“\”\’\,\^\s]+)+\)?', line):
                     final_text += f"<div class=\"img\">\n<img src=\"{match.group(1)}\">\n<under>{_format(match.group(4))}</under>\n</div>\n"
                 elif match := re.match(r'F([\d]+)\s*(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*))', line):
-                    final_text += "<div id=\"foot{0}\"><a href=\"{1}\">{1}</a></div>\n".format(match.group(1), match.group(2))
+                    final_text += "<div class=\"footnote\" id=\"foot{0}\"><a href=\"{1}\">{1}</a></div>\n".format(match.group(1), match.group(2))
                 elif line.strip() == "T": 
                     table = True
                     final_text += "<div>\n<table>\n"
