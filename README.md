@@ -4,7 +4,7 @@
 
 You can install Erc by doing
 ```
-pip install --upgrade git+https://github.com/WhyDoWeLiveWithoutMeaning/Erc
+pip install -U git+https://github.com/WhyDoWeLiveWithoutMeaning/Erc
 ```
 
 ### Code Example
