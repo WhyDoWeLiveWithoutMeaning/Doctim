@@ -55,7 +55,7 @@ def _format(text: str) -> str:
     start = True
     for i in range(len(match)):
         if match[i] == "^^":
-            match[i] = f"<sup><a href=\"#foot{match[i+1]}\">[" if start else "]</a></sup>"
+            match[i] = f"<sup><a id=\"superfoot\" href=\"#foot{match[i+1]}\">[" if start else "]</a></sup>"
             start = not start
     match = re.split(r'(\_{2})([\w\s\-\_\<\>\,\^\/]+?)(\_{2})', ''.join(match) if match else text)
     start = True
