@@ -115,9 +115,9 @@ class Erc:
                 elif line.strip() == "T": 
                     table = True
                     final_text += "<div>\n<table>\n"
-                elif line.strip() == "```":
+                elif match := re.match(r'```(\w+)?', line):
                     codeblock = True
-                    final_text += "<code>\n"
+                    final_text += f"<code clang=\"{match.group(1)}\">\n"
                 else:
                     print(line)
                     raise Exception("This is not a valid format")
