@@ -100,7 +100,7 @@ class Erc:
                     codeblock = False
                     final_text += "</code>\n"
                 else:
-                    final_text += line + "\n"
+                    final_text += line + "<br>"
             else:
                 if line.strip() == "\n" or len(line.strip()) == 0:
                     final_text += "<br>\n"
