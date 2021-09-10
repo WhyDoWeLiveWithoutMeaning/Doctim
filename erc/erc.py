@@ -115,13 +115,15 @@ class Erc:
                     randomstring = ''.join(random.choice(string.ascii_letters) for _ in range(10))
                     codeblock = False
                     html = HtmlFormatter(cssclass=randomstring, style=get_style_by_name(self.style))
-                    final_text += f"<style>{html.get_style_defs(f'.{randomstring}')}</style>"
+                    final_text += f"<style>{html.get_style_defs(f'.{randomstring}')}</style>\n"
+                    final_text += "<div class=\"codeblock\">\n"
                     result = highlight(
                         current_code,
                         get_lexer_by_name(current_code_language),
                         html
                     )
                     final_text += result
+                    final_text += "</div>\n"
                     current_code = ""
                     current_code_language = ""
                 else:
@@ -143,6 +145,7 @@ class Erc:
                 elif match := re.match(r'```(\w+)?', line):
                     codeblock = True
                     current_code_language = match.group(1)
+
                 else:
                     print(line)
                     raise Exception("This is not a valid format")
