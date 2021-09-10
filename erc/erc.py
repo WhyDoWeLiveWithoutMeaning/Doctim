@@ -104,13 +104,15 @@ class Erc:
                 if line.strip() == "```":
                     codeblock = False
                     html = HtmlFormatter()
-                    final_text += f"<style>{html.get_style_defs()}</style>"
+                    final_text += f"<style>{html.get_style_defs('.highlight')}</style>"
                     result = highlight(
                         current_code,
                         get_lexer_by_name(current_code_language),
                         html
                     )
                     final_text += result
+                    current_code = ""
+                    current_code_language = ""
                 else:
                     current_code += line + "\n"
             else:
