@@ -98,7 +98,7 @@ class Erc:
             elif codeblock:
                 if line.strip() == "```":
                     codeblock = False
-                    final_text += "</code>\n"
+                    final_text += "</code></pre>\n"
                 else:
                     final_text += line + "<br>"
             else:
@@ -117,7 +117,8 @@ class Erc:
                     final_text += "<div>\n<table>\n"
                 elif match := re.match(r'```(\w+)?', line):
                     codeblock = True
-                    final_text += f"<code clang=\"{match.group(1)}\">\n"
+
+                    final_text += f"<pre><code class=\"{match.group(1) if len(match.group(1)) < 1 else 'nohighlight'}\">\n"
                 else:
                     print(line)
                     raise Exception("This is not a valid format")
