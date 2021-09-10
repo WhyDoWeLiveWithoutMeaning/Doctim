@@ -8,7 +8,9 @@ setup(
   author="Eric Beaulne",
   license="MIT",
   packages=['erc'],
-  install_requires=[],
+  install_requires=[
+    "Pygments>=2.10.0"
+  ],
   classifiers=[
     'Development Status :: 1 - Planning',
     'Intended Audience :: WEBSITE USERS',

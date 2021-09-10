@@ -22,6 +22,9 @@
 # SOFTWARE.
 
 import re
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
 
 def _format(text: str) -> str:
     text = re.sub(r'([\“\”])+',"\"",text)
@@ -83,6 +86,8 @@ class Erc:
         lines = self.text.split("\n")
         table = False
         codeblock = False
+        current_code = ""
+        current_code_language = ""
 
         for line in lines:
             if table:
@@ -98,9 +103,16 @@ class Erc:
             elif codeblock:
                 if line.strip() == "```":
                     codeblock = False
-                    final_text += "</code></pre>\n"
+                    html = HtmlFormatter()
+                    final_text += f"<style>{html.get_style_defs()}</style>"
+                    result = highlight(
+                        current_code,
+                        get_lexer_by_name(current_code_language),
+                        html
+                    )
+                    final_text += result
                 else:
-                    final_text += line + "<br>"
+                    current_code += line + "\n"
             else:
                 if line.strip() == "\n" or len(line.strip()) == 0:
                     final_text += "<br>\n"
@@ -117,8 +129,7 @@ class Erc:
                     final_text += "<div>\n<table>\n"
                 elif match := re.match(r'```(\w+)?', line):
                     codeblock = True
-
-                    final_text += f"<pre><code class=\"{match.group(1) if len(match.group(1)) < 1 else 'nohighlight'}\">\n"
+                    current_code_language = match.group(1)
                 else:
                     print(line)
                     raise Exception("This is not a valid format")
