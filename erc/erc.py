@@ -82,6 +82,7 @@ class Erc:
         final_text = ""
         lines = self.text.split("\n")
         table = False
+        codeblock = False
 
         for line in lines:
             if table:
@@ -94,6 +95,12 @@ class Erc:
                     for argument in arguments:
                         final_text += f"<td>{_format(argument.strip())}</td>\n"
                     final_text += "</tr>\n"
+            elif codeblock:
+                if line.strip() == "```":
+                    codeblock = False
+                    final_text += "</code>\n"
+                else:
+                    final_text += line + "\n"
             else:
                 if line.strip() == "\n" or len(line.strip()) == 0:
                     final_text += "<br>\n"
@@ -108,6 +115,9 @@ class Erc:
                 elif line.strip() == "T": 
                     table = True
                     final_text += "<div>\n<table>\n"
+                elif line.strip() == "```":
+                    codeblock = True
+                    final_text += "<code>\n"
                 else:
                     print(line)
                     raise Exception("This is not a valid format")
