@@ -22,9 +22,12 @@
 # SOFTWARE.
 
 import re
+import random
+import string
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
+from pygments.styles import get_style_by_name
 
 def _format(text: str) -> str:
     text = re.sub(r'([\“\”])+',"\"",text)
@@ -102,9 +105,10 @@ class Erc:
                     final_text += "</tr>\n"
             elif codeblock:
                 if line.strip() == "```":
+                    randomstring = ''.join(random.choice(string.ascii_letters) for _ in range(10))
                     codeblock = False
-                    html = HtmlFormatter()
-                    final_text += f"<style>{html.get_style_defs('.highlight')}</style>"
+                    html = HtmlFormatter(cssclass=randomstring, style=get_style_by_name('vim'))
+                    final_text += f"<style>{html.get_style_defs(f'.{randomstring}')}</style>"
                     result = highlight(
                         current_code,
                         get_lexer_by_name(current_code_language),
