@@ -29,7 +29,7 @@ def _format(text: str) -> str:
     match = re.split(r'(s.)((?:\s+)?(?:\+\+\s?(?:[\w\s\-\_\'\"\:\;\,\^\*\<\>\#\/\“\”\’]+)+\=\=\s?)+\s?)(.s)', text)
     full_length_list = []
     for element in match:
-        full_length_list.extend(re.split(r'(\+\+)\s*([\w\s\-\_\#\'\^\"\:\;\,\*\<\>\/]+)\s*(\=\=)', element))
+        full_length_list.extend(re.split(r'(\+\+)\s*(.+?)\s*(\=\=)', element))
     for i in range(len(full_length_list)):
         if full_length_list[i] == "s.":
             full_length_list[i] = "<ul>"
@@ -39,32 +39,32 @@ def _format(text: str) -> str:
             full_length_list[i] = "<li>"
         elif full_length_list[i] == "==":
             full_length_list[i] = "</li>"
-    match = re.split(r'(\*{2})([\w\s\-\_\'\#\^\"\:\,\;\<\>\/][\w\s\-\_\'\#\"\:\^\;\,\*\<\>\/]+?)(\*{2})', ''.join(full_length_list) if full_length_list else text)
+    match = re.split(r'(\*{2})(.+?)(\*{2})', ''.join(full_length_list) if full_length_list else text)
     if match:
         start = True
         for i in range(len(match)):
             if match[i] == "**":
                 match[i] = "<b>" if start else "</b>"
                 start = not start
-    match = re.split(r'(\*)([\w\s\-\_\'\"\#\:\^\;\<\,\>\/]+?)(\*)', ''.join(match) if match else text)
+    match = re.split(r'(\*)(.+?)(\*)', ''.join(match) if match else text)
     start = True
     for i in range(len(match)):
         if match[i] == "*":
             match[i] = "<em>" if start else "</em>"
             start = not start
-    match = re.split(r'(\^{2})([\w\s\-\_\'\"\:\#\^\;\<\,\>\/]+?)(\^{2})', ''.join(match) if match else text)
+    match = re.split(r'(\^{2})(.+?)(\^{2})', ''.join(match) if match else text)
     start = True
     for i in range(len(match)):
         if match[i] == "^^":
             match[i] = f"<sup><a id=\"superfoot\" href=\"#foot{match[i+1]}\">[" if start else "]</a></sup>"
             start = not start
-    match = re.split(r'(\_{2})([\w\s\-\_\<\>\,\#\^\/]+?)(\_{2})', ''.join(match) if match else text)
+    match = re.split(r'(\_{2})(.+?)(\_{2})', ''.join(match) if match else text)
     start = True
     for i in range(len(match)):
         if match[i] == "__":
             match[i] = "<u>" if start else "</u>"
             start = not start
-    match = re.split(r'(\-{2})([\w\s\-\_\'\"\:\;\<\>\#\^\,\/]+?)(\-{2})', ''.join(match) if match else text)
+    match = re.split(r'(\-{2})(.+?)(\-{2})', ''.join(match) if match else text)
     start = True
     for i in range(len(match)):
         if match[i] == "--":
@@ -97,9 +97,9 @@ class Erc:
             else:
                 if line.strip() == "\n" or len(line.strip()) == 0:
                     final_text += "<br>\n"
-                elif match := re.match(r'!([\d]+)\s*([\w\s\d\"\'#?\.@$%^&():;\*\-\=\+\“\”\’\,\_\\]+)\s*!', line):
+                elif match := re.match(r'!(\d+)\s*(.+)!', line):
                     final_text += f"<h{match.group(1)}>{_format(match.group(2).strip())}</h{match.group(1)}>\n"
-                elif match := re.match(r'\?\s*([\w\s\d\"\'#!\.@$%^&():;\*\-\“\”\=\+\’\,\_\\]+)\s*\?', line):
+                elif match := re.match(r'\?\s+(.+)\s+\?', line):
                     final_text += f"<p>{_format(match.group(1))}</p>\n"
                 elif match := re.match(r'\[(http[s]:\/\/([a-zA-Z\d\_\-\.\/]+)\.(png|jpg|jpeg))\]\(([a-zA-Z\'\"\“\”\’\#\,\^\s]+)+\)?', line):
                     final_text += f"<div class=\"img\">\n<img src=\"{match.group(1)}\">\n<under>{_format(match.group(4))}</under>\n</div>\n"
