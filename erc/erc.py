@@ -35,7 +35,7 @@ from typing import Optional
 def _format(text: str) -> str:
     text = re.sub(r'([\“\”])+',"\"",text)
     text = re.sub(r'([\’])+', "'", text)
-    match = re.split(r'(s.)((?:\s+)?(?:\+\+\s?(?:[\w\s\-\_\'\"\:\;\,\^\*\<\>\#\/\“\”\’]+)+\=\=\s?)+\s?)(.s)', text)
+    match = re.split(r'(s\.)((?:\s+)?(?:\+\+\s?(?:.+)+\=\=\s?)+\s?)(\.s)', text)
     full_length_list = []
     for element in match:
         full_length_list.extend(re.split(r'(\+\+)\s*(.+?)\s*(\=\=)', element))
