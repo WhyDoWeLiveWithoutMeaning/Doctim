@@ -40,9 +40,9 @@ def _format(text: str) -> str:
     for element in match:
         full_length_list.extend(re.split(r'(\+\+)\s*(.+?)\s*(\=\=)', element))
     for i in range(len(full_length_list)):
-        if full_length_list[i] == "s.":
+        if full_length_list[i].strip() == "s.":
             full_length_list[i] = "<ul>"
-        elif full_length_list[i] == ".s":
+        elif full_length_list[i].strip() == ".s":
             full_length_list[i] = "</ul>"
         elif full_length_list[i] == "++":
             full_length_list[i] = "<li>"
